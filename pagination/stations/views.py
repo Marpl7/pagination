@@ -11,11 +11,9 @@ def index(request):
 
 def bus_stations(request):
     file_name = settings.BUS_STATION_CSV
-    bus_stations = []
+
     with open(file_name, encoding='utf-8') as file:
-        reader = csv.DictReader(file)
-        for station in reader:
-            bus_stations.append(dict(station))
+        bus_stations = list(csv.DictReader(file))
 
         paginator = Paginator(bus_stations, 10)
         page_number = int(request.GET.get('page', 1))
